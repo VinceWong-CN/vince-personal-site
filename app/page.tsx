@@ -1,8 +1,9 @@
 'use client';
 
-import { useEffect, useRef, useState, type PointerEvent as ReactPointerEvent } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import { gsap } from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
+import SwingingBadge from './SwingingBadge';
 
 type CaseStudy = {
   id: string;
@@ -18,31 +19,6 @@ type CaseStudy = {
   mediaAlt?: string;
   visual?: 'boss10' | 'offer';
 };
-
-const heroProjects = [
-  {
-    title: 'WorkBuddy × LinkFox',
-    label: 'AI 生态合作',
-    media: '/media/workbuddy-linkfox-hero.jpg',
-    alt: 'WorkBuddy 与 LinkFox 联合活动主视觉',
-  },
-  {
-    title: '我的老板10后',
-    label: '原创内容 IP',
-    visual: 'boss10' as const,
-  },
-  {
-    title: 'ECHO',
-    label: '大型项目统筹',
-    media: '/media/echo-event.jpg',
-    alt: 'ECHO 合作伙伴大会活动现场',
-  },
-  {
-    title: 'OFFER 公益计划',
-    label: '创意与社会传播',
-    visual: 'offer' as const,
-  },
-];
 
 const methods = [
   ['业务理解', '先把业务目标、人群和限制讲清楚。', '六城市场与年度预算管理'],
@@ -188,9 +164,7 @@ function ProjectVisual({ visual, compact = false }: { visual: 'boss10' | 'offer'
 }
 
 export default function Home() {
-  const [activeHero, setActiveHero] = useState(0);
   const [selectedCase, setSelectedCase] = useState<CaseStudy | null>(null);
-  const mediaRef = useRef<HTMLDivElement>(null);
   const dialogRef = useRef<HTMLDivElement>(null);
   const closeRef = useRef<HTMLButtonElement>(null);
   const previousFocusRef = useRef<HTMLElement | null>(null);
@@ -208,8 +182,8 @@ export default function Home() {
     if (mediaQuery.matches) return () => window.removeEventListener('scroll', setProgress);
 
     const context = gsap.context(() => {
-      gsap.from('.hero-word', { yPercent: 26, rotate: 1.5, duration: 1.05, stagger: 0.08, ease: 'expo.out' });
-      gsap.from('.hero-chrome', { y: 18, duration: 0.65, delay: 0.35, stagger: 0.06, ease: 'power3.out' });
+      gsap.from('.hero-copy-piece', { y: 22, opacity: 0, duration: 0.8, stagger: 0.07, ease: 'power3.out' });
+      gsap.from('.badge-stage', { y: 28, opacity: 0, duration: 0.9, delay: 0.18, ease: 'power3.out' });
       gsap.utils.toArray<HTMLElement>('.project-card').forEach((card) => {
         gsap.fromTo(card, { y: 84, scale: 0.96 }, {
           y: 0,
@@ -232,13 +206,6 @@ export default function Home() {
       window.removeEventListener('scroll', setProgress);
     };
   }, []);
-
-  useEffect(() => {
-    if (!mediaRef.current || window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
-    gsap.fromTo(mediaRef.current, { y: 18, scale: 1.025 }, {
-      y: 0, scale: 1, duration: 0.72, ease: 'expo.out', clearProps: 'transform',
-    });
-  }, [activeHero]);
 
   useEffect(() => {
     if (!selectedCase) return;
@@ -270,22 +237,13 @@ export default function Home() {
     };
   }, [selectedCase]);
 
-  const handleHeroPointer = (event: ReactPointerEvent<HTMLElement>) => {
-    if (event.pointerType === 'touch') return;
-    const rect = event.currentTarget.getBoundingClientRect();
-    const ratio = Math.max(0, Math.min(0.999, (event.clientX - rect.left) / rect.width));
-    setActiveHero(Math.floor(ratio * heroProjects.length));
-  };
-
-  const activeProject = heroProjects[activeHero];
-
   return (
     <main id="top">
       <a className="skip-link" href="#work">跳到主要内容</a>
       <div className="reading-progress" aria-hidden="true" />
 
-      <header className="site-nav hero-chrome">
-        <a className="wordmark" href="#top" aria-label="返回顶部">VINCE <span>黄威</span></a>
+      <header className="site-nav">
+        <a className="wordmark" href="#top" aria-label="返回顶部">VINCE WONG</a>
         <nav aria-label="主导航">
           <a href="#work">项目</a>
           <a href="#career">经历</a>
@@ -295,41 +253,24 @@ export default function Home() {
         <a className="nav-contact" href="mailto:343906130@qq.com">联系我 <span aria-hidden="true">↗</span></a>
       </header>
 
-      <section className="hero" onPointerMove={handleHeroPointer} aria-labelledby="hero-title">
-        <div className="hero-grid" aria-hidden="true" />
-        <div className="hero-role hero-chrome">品牌运营 / AI 产品生态合作 / 项目统筹</div>
-        <div className="hero-year hero-chrome">SHENZHEN · 2026</div>
-        <h1 id="hero-title" className="hero-title">
-          <span className="hero-line"><span className="hero-word">把复杂事，</span></span>
-          <span className="hero-line hero-line-offset"><span className="hero-word">推进到结果。</span></span>
-        </h1>
-
-        <div className="hero-media hero-chrome" ref={mediaRef} aria-live="polite">
-          {activeProject.media ? (
-            <img src={activeProject.media} alt={activeProject.alt} fetchPriority={activeHero === 0 ? 'high' : 'auto'} />
-          ) : (
-            <ProjectVisual visual={activeProject.visual!} compact />
-          )}
-          <div className="media-caption"><span>{String(activeHero + 1).padStart(2, '0')}</span>{activeProject.title}</div>
-        </div>
-
-        <div className="hero-intro hero-chrome">
-          <p>黄威 Vince，7+ 年互联网品牌与市场经验。<br />把品牌、合作<br className="mobile-break" />与跨团队交付接到同一条业务路径上。</p>
-          <div className="hero-actions">
-            <a href="#work">查看代表项目 <span aria-hidden="true">↓</span></a>
-            <a href="/Vince-resume.pdf" download>下载公开简历 <span aria-hidden="true">↘</span></a>
+      <section className="hero" aria-labelledby="hero-title">
+        <div className="hero-layout">
+          <div className="hero-copy">
+            <p className="hero-eyebrow hero-copy-piece">BRAND MANAGEMENT / MARKET OPERATION</p>
+            <div className="hero-identity hero-copy-piece">
+              <span className="hero-acid" aria-hidden="true" />
+              <h1 id="hero-title" className="hero-name"><span>黄</span><span>威</span></h1>
+              <span className="hero-asterisk" aria-hidden="true">*</span>
+            </div>
+            <p className="hero-latin hero-copy-piece">VINCE WONG</p>
+            <p className="hero-position hero-copy-piece">品牌经理 / 市场运营</p>
+            <p className="hero-statement hero-copy-piece">理解业务，建立表达，组织资源。<br />把品牌判断推进为真实的市场结果。</p>
+            <div className="hero-actions hero-copy-piece">
+              <a className="hero-primary" href="#work">查看代表项目 <span aria-hidden="true">↗</span></a>
+              <a className="hero-secondary" href="/Vince-resume.pdf" download>下载简历 <span aria-hidden="true">↓</span></a>
+            </div>
           </div>
-        </div>
-
-        <div className="signal-console hero-chrome" aria-label="切换代表项目">
-          <div className="signal-track" aria-hidden="true"><i style={{ left: `${(activeHero + 0.5) * 25}%` }} /></div>
-          <div className="signal-projects">
-            {heroProjects.map((project, index) => (
-              <button key={project.title} type="button" className={index === activeHero ? 'is-active' : ''} onClick={() => setActiveHero(index)} aria-pressed={index === activeHero}>
-                <span>{project.label}</span><strong>{project.title}</strong>
-              </button>
-            ))}
-          </div>
+          <SwingingBadge />
         </div>
       </section>
 
