@@ -34,7 +34,7 @@ export default function Home() {
     const context = gsap.context(() => {
       gsap.from('.hero-reveal', { y: 28, opacity: 0, stagger: 0.08, duration: 0.75, ease: 'expo.out' });
       gsap.utils.toArray<HTMLElement>('[data-reveal]').forEach((element) => {
-        gsap.from(element, { y: 42, opacity: 0, duration: 0.8, ease: 'expo.out', scrollTrigger: { trigger: element, start: 'top 88%', once: true } });
+        gsap.fromTo(element, { y: 26 }, { y: 0, duration: 0.8, ease: 'expo.out', immediateRender: false, scrollTrigger: { trigger: element, start: 'top 90%', once: true } });
       });
       gsap.utils.toArray<HTMLElement>('[data-parallax]').forEach((element) => {
         gsap.fromTo(element, { yPercent: -3 }, { yPercent: 3, ease: 'none', scrollTrigger: { trigger: element, start: 'top bottom', end: 'bottom top', scrub: true } });

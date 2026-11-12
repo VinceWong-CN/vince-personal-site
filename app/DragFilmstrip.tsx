@@ -14,7 +14,7 @@ export default function DragFilmstrip({ images }: { images: string[][] }) {
   };
   const onMove = (event: ReactPointerEvent<HTMLDivElement>) => {
     const track = trackRef.current;
-    if (track && drag.current.id === event.pointerId) track.scrollLeft = drag.current.scroll - (event.clientX - drag.current.start) * 1.25;
+    if (track && drag.current.id === event.pointerId) track.scrollLeft = drag.current.scroll - (event.clientX - drag.current.start) * 1.08;
   };
   const onUp = (event: ReactPointerEvent<HTMLDivElement>) => {
     const track = trackRef.current;
