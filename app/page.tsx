@@ -17,19 +17,42 @@ type CaseStudy = {
   metrics: { value: string; label: string }[];
   media?: string;
   mediaAlt?: string;
-  visual?: 'boss10' | 'offer';
+  visual?: 'regional' | 'boss10' | 'offer';
 };
 
 const methods = [
-  ['业务理解', '先把业务目标、人群和限制讲清楚。', '六城市场与年度预算管理'],
-  ['品牌定位', '把分散信息收束成可执行的表达。', '紫讯品牌规划与内容规范'],
-  ['内容表达', '让复杂内容被看懂，也愿意被传播。', '《我的老板10后》原创 IP'],
-  ['资源组织', '谈清权益、责任、节奏和交付边界。', 'WorkBuddy × LinkFox 合作谈判'],
-  ['项目交付', '把人、时间和细节拉到同一张表上。', 'ECHO 1200+ 人项目统筹'],
-  ['数据沉淀', '用结果校准下一次判断。', '注册、调用与传播链路复盘'],
+  ['业务理解', '先确认目标、人群与真正需要解决的问题。', '六城市场经营'],
+  ['问题判断', '在限制条件中找到值得投入的核心动作。', '区域策略与品牌议题'],
+  ['品牌表达', '把判断转化为用户愿意理解和参与的内容。', '内容 IP 与公益传播'],
+  ['资源组织', '谈清权益、职责、节奏和交付边界。', '合作谈判与跨团队协同'],
+  ['结果复盘', '用业务与传播结果校准下一次选择。', 'ROI、注册与活跃数据'],
 ];
 
 const cases: CaseStudy[] = [
+  {
+    id: 'regional-market',
+    title: '华南六城区域市场经营',
+    category: '区域市场 / 经营管理',
+    role: '区域市场负责人 / 策略规划 / 团队与预算管理',
+    challenge: '六个城市所处阶段、客户结构和市场环境不同，区域市场不能依赖一套活动模板，也不能只追求短期场次和曝光。',
+    judgement: '以城市目标和客户需求为起点，分别配置活动、渠道与客户运营动作，同时用统一预算和复盘机制管理区域效率。',
+    actions: [
+      '负责深圳、东莞、惠州等华南六城市场规划，统筹年度预算、项目节奏与三人团队。',
+      '结合城市特点设计客户活动、行业合作与品牌内容，并协调销售及外部资源推进落地。',
+      '建立活动注册、客户反馈、商机与投入产出复盘，持续调整项目组合。',
+    ],
+    results: [
+      '覆盖华南六个城市，年均统筹 30+ 场市场活动。',
+      '区域活动整体 ROI 提升 110%，活动注册提升 40%。',
+      '从单场执行逐步承担区域策略、预算与团队管理职责。',
+    ],
+    metrics: [
+      { value: '6城', label: '区域覆盖' },
+      { value: '30+', label: '年均活动' },
+      { value: '+110%', label: '整体 ROI' },
+    ],
+    visual: 'regional',
+  },
   {
     id: 'workbuddy-linkfox',
     title: 'WorkBuddy × LinkFox',
@@ -130,16 +153,44 @@ const cases: CaseStudy[] = [
   },
 ];
 
-const capabilities = [
-  ['品牌规划与管理', '参与企业与产品品牌定位、品牌架构和核心表达梳理，并把方向落实到内容、材料与合作项目。'],
-  ['生态合作与谈判', '独立负责合作沟通、权益设计和条件谈判，让双方资源最终落到可执行方案。'],
-  ['内容与 IP 策划', '从品牌议题出发完成主题、内容结构、制作与传播，《我的老板10后》获公司级分发。'],
-  ['大型项目统筹', '长期管理多城市活动与年度项目，能够处理预算、供应商、现场流程和突发问题。'],
-  ['跨部门推进', '协同产品、技术、设计、内容、销售和外部伙伴，把复杂项目拆成节点并推进交付。'],
-  ['数据复盘与优化', '关注传播、访问、注册、调用与活跃数据，用结果判断项目是否真正产生业务价值。'],
+const storyGroups = [
+  {
+    number: '01',
+    question: '如何把区域市场做深？',
+    introduction: '不复制一套活动模板，而是理解不同城市、客户与业务阶段，再决定资源投向。',
+    caseIds: ['regional-market'],
+  },
+  {
+    number: '02',
+    question: '如何让品牌内容被看见？',
+    introduction: '从值得讨论的真实议题出发，让内容本身承担品牌表达，并设计用户参与和二次传播。',
+    caseIds: ['boss10', 'offer'],
+  },
+  {
+    number: '03',
+    question: '如何把复杂合作推进落地？',
+    introduction: '把多方目标拆成共同机制、明确节点和可验收结果，让合作不止停在方案与曝光。',
+    caseIds: ['echo', 'workbuddy-linkfox'],
+  },
 ];
 
-function ProjectVisual({ visual, compact = false }: { visual: 'boss10' | 'offer'; compact?: boolean }) {
+const valueProofs = [
+  ['理解业务，不只接收传播需求', '从六城市场经营到当前产品合作，我会先判断业务目标、人群与限制，再决定需要什么品牌和市场动作。', '区域市场 / 产品合作'],
+  ['把抽象判断变成内容与项目', '从《我的老板10后》到 OFFER 公益计划，把品牌议题转化为具体内容、参与机制与传播路径。', '内容 IP / 公益传播'],
+  ['组织复杂资源并对交付负责', '长期协调销售、产品、技术、设计、供应商与外部伙伴，处理预算、节点、谈判和现场风险。', 'ECHO / 六城市场 / 生态合作'],
+];
+
+function ProjectVisual({ visual, compact = false }: { visual: 'regional' | 'boss10' | 'offer'; compact?: boolean }) {
+  if (visual === 'regional') {
+    return (
+      <div className={`type-visual regional-visual${compact ? ' is-compact' : ''}`} aria-label="华南六城区域市场经营数据视觉">
+        <span className="type-visual-kicker">REGIONAL MARKET / SOUTH CHINA</span>
+        <strong>06</strong><b>CITIES</b>
+        <div className="regional-cities"><span>深圳</span><span>东莞</span><span>惠州</span><span>珠海</span><span>中山</span><span>佛山</span></div>
+        <div className="type-visual-data"><span>30+ / YEAR</span><span>ROI +110%</span><span>REGISTRATION +40%</span></div>
+      </div>
+    );
+  }
   if (visual === 'boss10') {
     return (
       <div className={`type-visual boss10-visual${compact ? ' is-compact' : ''}`} aria-label="我的老板10后项目数据视觉">
@@ -184,12 +235,12 @@ export default function Home() {
     const context = gsap.context(() => {
       gsap.from('.hero-copy-piece', { y: 22, opacity: 0, duration: 0.8, stagger: 0.07, ease: 'power3.out' });
       gsap.from('.badge-stage', { y: 28, opacity: 0, duration: 0.9, delay: 0.18, ease: 'power3.out' });
-      gsap.utils.toArray<HTMLElement>('.project-card').forEach((card) => {
-        gsap.fromTo(card, { y: 84, scale: 0.96 }, {
+      gsap.utils.toArray<HTMLElement>('.portfolio-card').forEach((card) => {
+        gsap.fromTo(card, { y: 54, opacity: 0.7 }, {
           y: 0,
-          scale: 1,
+          opacity: 1,
           ease: 'none',
-          scrollTrigger: { trigger: card, start: 'top 92%', end: 'top 42%', scrub: 0.8 },
+          scrollTrigger: { trigger: card, start: 'top 94%', end: 'top 64%', scrub: 0.7 },
         });
       });
       gsap.utils.toArray<HTMLElement>('.method-node').forEach((node, index) => {
@@ -274,37 +325,51 @@ export default function Home() {
         </div>
       </section>
 
-      <section className="method-section" aria-labelledby="method-title">
-        <div className="section-intro light">
-          <h2 id="method-title">我如何把项目<br />向前推进</h2>
-          <p>不是从“做一次传播”开始，而是从业务问题开始。每一步都要能接到下一步，也要能被结果验证。</p>
+      <section className="evidence-strip" aria-label="职业概览">
+        <div><strong>7+</strong><span>年品牌与市场经验</span></div>
+        <div><strong>6城</strong><span>区域市场经营</span></div>
+        <div><strong>30+</strong><span>年均统筹市场项目</span></div>
+        <p>从一线市场执行，到区域经营、内容项目、品牌管理与生态合作。</p>
+      </section>
+
+      <section className="work-section" id="work" aria-labelledby="work-title">
+        <div className="work-heading editorial-heading">
+          <div><span>SELECTED WORK / 2019—NOW</span><h2 id="work-title">三个问题，<br />五个真实项目。</h2></div>
+          <p>项目类型不同，但背后是一套稳定的工作逻辑：理解业务，形成判断，组织资源，把结果做出来。</p>
         </div>
+        <div className="story-list">
+          {storyGroups.map((group) => {
+            const groupCases = group.caseIds.map((id) => cases.find((item) => item.id === id)!).filter(Boolean);
+            return (
+              <section className={`story-group story-${group.number}`} key={group.number} aria-labelledby={`story-${group.number}`}>
+                <div className="story-intro"><span>{group.number}</span><h3 id={`story-${group.number}`}>{group.question}</h3><p>{group.introduction}</p></div>
+                <div className={`story-projects${groupCases.length === 1 ? ' is-single' : ''}`}>
+                  {groupCases.map((item, index) => (
+                    <article className={`portfolio-card${index === 0 ? ' is-lead' : ' is-support'}`} key={item.id}>
+                      <button type="button" onClick={() => setSelectedCase(item)} aria-label={`查看 ${item.title} 完整案例`}>
+                        <div className="portfolio-media">{item.media ? <img src={item.media} alt={item.mediaAlt} loading="lazy" /> : <ProjectVisual visual={item.visual!} />}</div>
+                        <div className="portfolio-copy">
+                          <div className="portfolio-meta"><span>{item.category}</span><span>VIEW CASE ↗</span></div>
+                          <h4>{item.title}</h4><p>{item.role}</p>
+                          <div className="portfolio-metrics">{item.metrics.map((metric) => <div key={metric.label}><strong>{metric.value}</strong><span>{metric.label}</span></div>)}</div>
+                        </div>
+                      </button>
+                    </article>
+                  ))}
+                </div>
+              </section>
+            );
+          })}
+        </div>
+      </section>
+
+      <section className="method-section" aria-labelledby="method-title">
+        <div className="method-heading"><span>HOW I WORK</span><h2 id="method-title">项目不同，<br />判断路径相同。</h2><p>方法不是先于项目的口号，而是从一次次真实交付中沉淀出来的工作习惯。</p></div>
         <div className="method-path">
           <div className="method-line" aria-hidden="true" />
           {methods.map(([title, copy, proof], index) => (
             <article className="method-node" key={title}>
               <span>{String(index + 1).padStart(2, '0')}</span><h3>{title}</h3><p>{copy}</p><small>{proof}</small>
-            </article>
-          ))}
-        </div>
-      </section>
-
-      <section className="work-section" id="work" aria-labelledby="work-title">
-        <div className="work-heading">
-          <h2 id="work-title">不是能力词。<br />是做成过的事。</h2>
-          <p>四个项目，分别对应生态合作、内容 IP、大型活动与公益传播。点击项目，查看判断、动作与结果。</p>
-        </div>
-        <div className="project-list">
-          {cases.map((item, index) => (
-            <article className={`project-card project-${index + 1}`} key={item.id}>
-              <button type="button" onClick={() => setSelectedCase(item)} aria-label={`查看 ${item.title} 完整案例`}>
-                <div className="project-media">{item.media ? <img src={item.media} alt={item.mediaAlt} loading="lazy" /> : <ProjectVisual visual={item.visual!} />}</div>
-                <div className="project-copy">
-                  <div className="project-topline"><span>{item.category}</span><span>VIEW CASE ↗</span></div>
-                  <h3>{item.title}</h3><p>{item.role}</p>
-                  <div className="project-metrics">{item.metrics.map((metric) => <div key={metric.label}><strong>{metric.value}</strong><span>{metric.label}</span></div>)}</div>
-                </div>
-              </button>
             </article>
           ))}
         </div>
@@ -323,10 +388,10 @@ export default function Home() {
         </div>
       </section>
 
-      <section className="capability-section" id="capabilities" aria-labelledby="capability-title">
-        <div className="capability-title-wrap"><h2 id="capability-title">能力，需要证据。</h2><span>WHAT I CAN OWN</span></div>
-        <div className="capability-list">
-          {capabilities.map(([title, proof], index) => <article key={title}><span>{String(index + 1).padStart(2, '0')}</span><h3>{title}</h3><p>{proof}</p></article>)}
+      <section className="value-section" id="capabilities" aria-labelledby="capability-title">
+        <div className="value-heading"><span>TRANSFERABLE VALUE</span><h2 id="capability-title">换一个业务场景，<br />依然能带走的能力。</h2></div>
+        <div className="value-list">
+          {valueProofs.map(([title, proof, source], index) => <article key={title}><span>{String(index + 1).padStart(2, '0')}</span><div><h3>{title}</h3><p>{proof}</p><small>{source}</small></div></article>)}
         </div>
       </section>
 
