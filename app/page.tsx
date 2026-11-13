@@ -35,7 +35,7 @@ export default function Home() {
 
     <section className="chapter selected" id="work">
       <div className="selected-title"><span>SELECTED WORK / 02</span><h2><i>三个项目，</i><i>三种解决问题的方式。</i></h2><p>内容IP、年度大项目与城市公益传播。<br />先看结果，再进入我在其中做出的判断。</p></div>
-      <div className="selected-collage"><a href="#boss10" className="selected-boss"><div>{bossImages.slice(0,3).map(([src,alt]) => <img key={src} src={src} alt={alt} />)}</div><span>01 / ORIGINAL CONTENT IP</span><h3>我的老板10后</h3><p>项目发起 · 内容策划 · 项目总控</p><b>0投放 / 24h 5万+曝光</b></a><a href="#echo" className="selected-echo"><img src="/media/echo-01.webp" alt="ECHO 2024活动现场" /><span>02 / ANNUAL EVENT</span><h3>ECHO 2024 四方来才</h3><b>1,200+到场 / 500+企业</b></a><a href="#offer" className="selected-offer"><img src="/media/offer-03.webp" alt="OFFER公益计划地铁长廊展示" /><span>03 / PUBLIC CAMPAIGN</span><h3>这份作品值得一个OFFER</h3><b>100+投稿 / 15组地铁展示</b></a></div>
+      <div className="selected-collage"><a href="#boss10" className="selected-boss"><div>{bossImages.slice(0,3).map(([src,alt]) => <img key={src} src={src} alt={alt} />)}</div><span>01 / ORIGINAL CONTENT IP</span><h3>我的老板10后</h3><p>内容IP · 从0到1策划 · 项目总控</p><b>0投放 / 24h 5万+曝光</b></a><a href="#echo" className="selected-echo"><img src="/media/echo-01.webp" alt="ECHO 2024活动现场" /><span>02 / ANNUAL EVENT</span><h3>ECHO 2024 四方来才</h3><p>年度IP · 全链路统筹 · 大型项目交付</p><b>1,200+到场 / 500+企业</b></a><a href="#offer" className="selected-offer"><img src="/media/offer-03.webp" alt="OFFER公益计划地铁长廊展示" /><span>03 / PUBLIC CAMPAIGN</span><h3>这份作品值得一个OFFER</h3><p>公益创意 · 资源整合 · 跨城复制</p><b>100+投稿 / 15组地铁展示</b></a></div>
     </section>
 
     <section className="chapter case boss" id="boss10">
@@ -55,7 +55,7 @@ export default function Home() {
     </section>
 
     <section className="chapter final" id="current">
-      <div className="current-block"><div className="current-title"><span>CURRENT WORK / 04</span><h2><i>现在，我把品牌方法</i><i>带进新的产品场景。</i></h2></div><article><span>紫讯品牌规划</span><h3>参与品牌定位、架构、核心表达与材料统一。</h3><p>基础建设仍在持续推进，保守呈现。</p></article><article className="wb"><img src="/media/workbuddy-linkfox-hero.jpg" alt="WorkBuddy与LinkFox联合活动" /><div><span>WORKBUDDY × LINKFOX</span><p>合作谈判、活动机制与跨部门推进</p><strong>2,069<small>渠道注册</small></strong><strong>149,743<small>产品调用</small></strong></div></article></div>
+      <div className="current-block"><div className="current-title"><span>CURRENT WORK / 04</span><h2><i>现在，我把品牌方法</i><i>带进新的产品场景。</i></h2></div><article><span>紫讯品牌规划</span><h3>参与品牌定位、架构、核心表达与材料统一。</h3><p>基础建设仍在持续推进，保守呈现。</p></article><article className="wb"><img src="/media/workbuddy-linkfox-banner.png" alt="LinkFox与WorkBuddy跨境AI搭子联合活动" /><div><span>WORKBUDDY × LINKFOX</span><p>合作谈判、活动机制与跨部门推进</p><strong>2,069<small>渠道注册</small></strong><strong>149,743<small>产品调用</small></strong></div></article></div>
       <div className="career" id="experience"><span>EXPERIENCE / 05</span><h2><i>经历不是时间线，</i><i>而是能力边界的变化。</i></h2><div><article><b>NOW</b><h3>紫讯科技</h3><p>品牌管理、产品合作与生态谈判</p></article><article><b>2019—2026</b><h3>BOSS直聘</h3><p>华南六城经营、团队、预算与公司级项目</p></article><article><b>EARLY YEARS</b><h3>市场与现场</h3><p>资源合作、活动执行和用户沟通</p></article></div></div>
       <div className="about" id="about"><div><span>ABOUT / 06</span><h2><i>用技术理解产品，</i><i>用品牌创造价值。</i></h2><p>计算机科学与技术本科，让我更快进入技术产品语境；长期市场实践，让我从用户、业务和落地条件出发做判断。</p><nav><a href="mailto:343906130@qq.com">343906130@qq.com ↗</a><a href="/Vince-resume.pdf" download>下载简历 ↓</a></nav></div><img src="/media/vince-portrait-cutout.png" alt="黄威Vince职业肖像" /></div>
     </section>
