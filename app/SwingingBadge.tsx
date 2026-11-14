@@ -28,10 +28,10 @@ export default function SwingingBadge() {
     if (!badge || reduceMotionRef.current) return;
     idleTweenRef.current?.kill();
     idleTweenRef.current = gsap.to(badge, {
-      rotation: 1.35,
-      duration: 2.8,
+      rotation: 1.1,
+      duration: 1.15,
       ease: 'sine.inOut',
-      repeat: -1,
+      repeat: 1,
       yoyo: true,
       transformOrigin: '50% 3%',
     });
@@ -43,8 +43,8 @@ export default function SwingingBadge() {
     const badge = badgeRef.current;
     if (!badge) return;
 
-    gsap.set(badge, { rotation: -1.1, transformOrigin: '50% 3%' });
-    startIdle();
+    gsap.set(badge, { rotation: -2.2, transformOrigin: '50% 3%' });
+    idleTweenRef.current = gsap.to(badge, { rotation: 1.1, duration: 1.05, repeat: 1, yoyo: true, ease: 'sine.inOut', delay: .55 });
 
     const onMotionChange = (event: MediaQueryListEvent) => {
       reduceMotionRef.current = event.matches;

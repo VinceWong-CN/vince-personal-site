@@ -1,6 +1,6 @@
 'use client';
 
-import { useEffect } from 'react';
+import { useLayoutEffect } from 'react';
 import { gsap } from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import DragFilmstrip from './DragFilmstrip';
@@ -14,10 +14,32 @@ const bossImages = [
 ];
 
 export default function Home() {
-  useEffect(() => {
+  useLayoutEffect(() => {
     gsap.registerPlugin(ScrollTrigger);
     if (matchMedia('(prefers-reduced-motion: reduce)').matches) return;
-    const context = gsap.context(() => gsap.utils.toArray<HTMLElement>('[data-reveal]').forEach((el) => gsap.from(el, { y: 26, opacity: 0, duration: .7, ease: 'expo.out', scrollTrigger: { trigger: el, start: 'top 90%', once: true } })));
+    const context = gsap.context(() => {
+      gsap.timeline({ defaults: { ease: 'expo.out' } })
+        .from('.hero .kicker', { y: 12, opacity: 0, duration: .55 })
+        .from('.hero h1 span, .hero h1 sup', { yPercent: 55, opacity: 0, stagger: .08, duration: .85 }, '-=.3')
+        .from('.hero h1 i', { scaleX: 0, transformOrigin: 'left center', duration: .65 }, '-=.65')
+        .from('.hero-en', { clipPath: 'inset(0 100% 0 0)', duration: .8 }, '-=.45')
+        .from('.hero-role, .hero-line, .hero-links', { y: 14, opacity: 0, stagger: .08, duration: .55 }, '-=.45');
+
+      gsap.utils.toArray<HTMLElement>('.capability-lines article, .selected-collage a, .echo-narrative article, .offer-bottom article, .closing-about').forEach((el) => gsap.from(el, {
+        y: 22, opacity: 0, duration: .65, ease: 'expo.out',
+        scrollTrigger: { trigger: el, start: 'top 88%', once: true },
+      }));
+
+      gsap.utils.toArray<HTMLElement>('.selected-collage a > img, .selected-boss > div, .echo-cover img, .offer-hero, .current-case-head img').forEach((el) => gsap.from(el, {
+        clipPath: 'inset(0 0 100% 0)', scale: 1.025, duration: 1, ease: 'expo.out',
+        scrollTrigger: { trigger: el, start: 'top 86%', once: true },
+      }));
+
+      gsap.utils.toArray<HTMLElement>('.echo-results article, .current-results article').forEach((el) => gsap.from(el, {
+        y: 14, opacity: 0, duration: .6, ease: 'expo.out',
+        scrollTrigger: { trigger: el, start: 'top 90%', once: true },
+      }));
+    });
     return () => context.revert();
   }, []);
 
