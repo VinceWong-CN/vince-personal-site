@@ -56,9 +56,15 @@ export default function Home() {
     </section>
 
     <section className="chapter final" id="current">
-      <div className="current-block"><div className="current-title"><span>CURRENT WORK / 04</span><h2><i>现在，我把品牌方法</i><i>带进新的产品场景。</i></h2></div><article><span>紫讯品牌规划</span><h3>参与品牌定位、架构、核心表达与材料统一。</h3><p>基础建设仍在持续推进，保守呈现。</p></article><article className="wb"><img src="/media/workbuddy-linkfox-banner.png" alt="LinkFox与WorkBuddy跨境AI搭子联合活动" /><div><span>WORKBUDDY × LINKFOX</span><p>合作谈判、活动机制与跨部门推进</p><strong>2,069<small>渠道注册</small></strong><strong>149,743<small>产品调用</small></strong></div></article></div>
-      <div className="career" id="experience"><span>EXPERIENCE / 05</span><h2><i>经历不是时间线，</i><i>而是能力边界的变化。</i></h2><div><article><b>NOW</b><h3>紫讯科技</h3><p>品牌管理、产品合作与生态谈判</p></article><article><b>2019—2026</b><h3>BOSS直聘</h3><p>华南六城经营、团队、预算与公司级项目</p></article><article><b>EARLY YEARS</b><h3>市场与现场</h3><p>资源合作、活动执行和用户沟通</p></article></div></div>
-      <div className="about" id="about"><div><span>ABOUT / 06</span><h2><i>用技术理解产品，</i><i>用品牌创造价值。</i></h2><p>计算机科学与技术本科，让我更快进入技术产品语境；长期市场实践，让我从用户、业务和落地条件出发做判断。</p><nav><a href="mailto:343906130@qq.com">343906130@qq.com ↗</a><a href="/Vince-resume.pdf" download>下载简历 ↓</a></nav></div><img src="/media/vince-portrait-cutout.png" alt="黄威Vince职业肖像" /></div>
+      <div className="current-case">
+        <div className="current-case-head"><div><span>CURRENT WORK / 04</span><h2>现在，我把品牌方法<br />带进新的产品场景。</h2><p>从合作谈判、机制设计到跨部门交付，让品牌合作进入真实产品体验。</p></div><img src="/media/workbuddy-linkfox-banner.png" alt="LinkFox与WorkBuddy跨境AI搭子联合活动" /></div>
+        <div className="current-case-detail">
+          <div className="current-story"><article><span>BACKGROUND</span><h3>生态接入后的<br />首个联合运营项目</h3></article><article><span>JUDGEMENT</span><h3>新用户获取与存量用户激活，<br />需要两条不同路径</h3></article><article><span>MY ROLE</span><h3>负责合作谈判，统筹方案、规则、内容、<br />页面与跨部门上线</h3></article></div>
+          <div className="current-results"><article><strong>2,069</strong><p>渠道注册</p></article><article><strong>149,743</strong><p>产品调用</p></article><article><strong>+128.3%</strong><p>日均调用</p></article><div><p>两期活动上线，形成从内容触达、注册到调用与活跃的观察链路。</p><small>活动前后工作日观察数据</small></div></div>
+        </div>
+      </div>
+      <div className="closing-career" id="experience"><article><b>NOW / 紫讯科技</b><p>从品牌合作走向生态共建，推动品牌能力进入产品场景。</p></article><article><b>2019—2026 / BOSS直聘</b><p>在快速变化的业务中，建立品牌增长与合作机制。</p></article><article><b>EARLY YEARS / 市场与现场</b><p>从市场执行与现场运营起步，打下用户、内容与增长认知。</p></article></div>
+      <div className="closing-about" id="about"><div className="closing-statement"><h2>用技术理解产品，<br />用品牌创造价值。</h2></div><nav><a href="mailto:343906130@qq.com">343906130@qq.com ↗</a><a href="/Vince-resume.pdf" download>下载简历 ↓</a></nav><img src="/media/vince-portrait-cutout.png" alt="黄威Vince职业肖像" /></div>
     </section>
   </main>;
 }
