@@ -7,14 +7,15 @@ import DragFilmstrip from './DragFilmstrip';
 import SwingingBadge from './SwingingBadge';
 
 const bossImages = [
-  ['/media/boss10-01.webp', '《我的老板10后》节目中10后小老板讨论职场热词'],
-  ['/media/boss10-02.webp', '10后小老板分享对躺平的看法'],
-  ['/media/boss10-03.webp', '《我的老板10后》多人户外录制现场'],
-  ['/media/boss10-04.webp', '10后小老板与职场嘉宾互动'],
+  ['/media/optimized/boss10-01-v2-1100.webp', '《我的老板10后》节目中10后小老板讨论职场热词', '/media/optimized/boss10-01-v2-640.webp 640w, /media/optimized/boss10-01-v2-1100.webp 1100w'],
+  ['/media/optimized/boss10-02-v2-1100.webp', '10后小老板分享对躺平的看法', '/media/optimized/boss10-02-v2-640.webp 640w, /media/optimized/boss10-02-v2-1100.webp 1100w'],
+  ['/media/optimized/boss10-03-v2-1100.webp', '《我的老板10后》多人户外录制现场', '/media/optimized/boss10-03-v2-640.webp 640w, /media/optimized/boss10-03-v2-1100.webp 1100w'],
+  ['/media/optimized/boss10-04-v2-1100.webp', '10后小老板与职场嘉宾互动', '/media/optimized/boss10-04-v2-640.webp 640w, /media/optimized/boss10-04-v2-1100.webp 1100w'],
 ];
 
 export default function Home() {
   const transitionToProject = (event: MouseEvent<HTMLAnchorElement>) => {
+    if (matchMedia('(max-width: 900px)').matches) return;
     const href = event.currentTarget.getAttribute('href');
     if (!href?.startsWith('#')) return;
     const target = document.querySelector<HTMLElement>(href);
@@ -120,7 +121,7 @@ export default function Home() {
 
     <section className="chapter selected" id="work">
       <div className="selected-title"><span>SELECTED WORK / 02</span><h2><i>三个项目，</i><i>三种解决问题的方式。</i></h2><p>内容IP、年度大项目与城市公益传播。<br />先看结果，再进入我在其中做出的判断。</p></div>
-      <div className="selected-collage"><a href="#boss10" className="selected-boss" onClick={transitionToProject}><div>{bossImages.slice(0,3).map(([src,alt]) => <img key={src} src={src} alt={alt} />)}</div><span>01 / ORIGINAL CONTENT IP</span><h3>我的老板10后</h3><p>内容IP · 从0到1策划 · 项目总控</p><b>0投放 / 24h 5万+曝光</b></a><a href="#echo" className="selected-echo" onClick={transitionToProject}><img src="/media/echo-01.webp" alt="ECHO 2024活动现场" /><span>02 / ANNUAL EVENT</span><h3>ECHO 2024 四方来才</h3><p>年度IP · 全链路统筹 · 大型项目交付</p><b>1,200+到场 / 500+企业</b></a><a href="#offer" className="selected-offer" onClick={transitionToProject}><img src="/media/offer-03.webp" alt="OFFER公益计划地铁长廊展示" /><span>03 / PUBLIC CAMPAIGN</span><h3>这份作品值得一个OFFER</h3><p>公益创意 · 资源整合 · 跨城复制</p><b>100+投稿 / 15组地铁展示</b></a></div>
+      <div className="selected-collage"><a href="#boss10" className="selected-boss" data-index="01" onClick={transitionToProject}><div>{bossImages.slice(0,3).map(([src,alt,srcSet]) => <img key={src} src={src} srcSet={srcSet} sizes="15vw" width={1100} height={2385} loading="lazy" decoding="async" alt={alt} />)}</div><span>01 / ORIGINAL CONTENT IP</span><h3>我的老板10后</h3><p>内容IP · 从0到1策划 · 项目总控</p><b>0投放 / 24h 5万+曝光</b></a><a href="#echo" className="selected-echo" data-index="02" onClick={transitionToProject}><img src="/media/optimized/echo-01-v2-1600.webp" srcSet="/media/optimized/echo-01-v2-640.webp 640w, /media/optimized/echo-01-v2-1600.webp 1600w" sizes="(max-width: 900px) 100vw, 80vw" width={2200} height={1464} loading="lazy" decoding="async" alt="ECHO 2024活动现场" /><span>02 / ANNUAL EVENT</span><h3>ECHO 2024 四方来才</h3><p>年度IP · 全链路统筹 · 大型项目交付</p><b>1,200+到场 / 500+企业</b></a><a href="#offer" className="selected-offer" data-index="03" onClick={transitionToProject}><img src="/media/optimized/offer-03-v2-1600.webp" srcSet="/media/optimized/offer-03-v2-640.webp 640w, /media/optimized/offer-03-v2-1600.webp 1600w" sizes="(max-width: 900px) 100vw, 70vw" width={1800} height={1012} loading="lazy" decoding="async" alt="OFFER公益计划地铁长廊展示" /><span>03 / PUBLIC CAMPAIGN</span><h3>这份作品值得一个OFFER</h3><p>公益创意 · 资源整合 · 跨城复制</p><b>100+投稿 / 15组地铁展示</b></a></div>
     </section>
 
     <section className="chapter case boss" id="boss10">
@@ -129,27 +130,27 @@ export default function Home() {
     </section>
 
     <section className="chapter echo" id="echo">
-      <div className="echo-cover"><img src="/media/echo-01.webp" alt="ECHO 2024现场观众全景" /><div><span>CASE 02 / ANNUAL EVENT</span><h2>ECHO 2024<br />四方来才</h2><p>项目总负责人 / 百万级预算</p></div></div>
+      <div className="echo-cover"><img src="/media/optimized/echo-01-v2-1600.webp" srcSet="/media/optimized/echo-01-v2-640.webp 640w, /media/optimized/echo-01-v2-1600.webp 1600w" sizes="(max-width: 900px) 100vw, 80vw" width={2200} height={1464} loading="lazy" decoding="async" alt="ECHO 2024现场观众全景" /><div><span>CASE 02 / ANNUAL EVENT</span><h2>ECHO 2024<br />四方来才</h2><p>项目总负责人 / 百万级预算</p></div></div>
       <div className="echo-narrative"><article><span>BACKGROUND</span><h3>不只是一场招聘会</h3><p>在更大的规模上连接优秀人才与优质企业，让内容、体验与品牌势能共同形成年度人才IP。</p></article><article><span>JUDGEMENT</span><h3>一次人才生态聚合</h3><p>通过高质量内容与现场体验，同时提升企业端与人才端的参与价值。</p></article><article><span>PROGRAM LEAD</span><h3>以总负责人身份推进</h3><p>对项目目标、策略、预算、资源、团队、执行和结果负责。</p></article><article><span>DELIVERY</span><h3>管理复杂度，也管理结果</h3><p>推进定位、议程、招商合作、内容舞台、现场运营、传播与复盘全链路交付。</p></article></div>
       <div className="echo-results"><article><span>RESULT 01</span><strong>1,200+</strong><p>现场到场</p></article><article><span>RESULT 02</span><strong>500+</strong><p>参与企业</p></article><article><span>RESULT 03</span><strong>10万+</strong><p>全网自然曝光</p></article></div>
-      <div className="echo-bottom"><figure><img src="/media/echo-03.webp" alt="ECHO舞台演出现场" /></figure><p>把人才议题<br />做成可感知的<br /><b>年度现场。</b></p><figure><img src="/media/echo-02.webp" alt="ECHO项目团队合影" /></figure><p>复杂度越高，<br />越依赖清晰节点与<br /><b>稳定协作。</b></p></div>
+      <div className="echo-bottom"><figure><img src="/media/optimized/echo-03-v2-1600.webp" srcSet="/media/optimized/echo-03-v2-640.webp 640w, /media/optimized/echo-03-v2-1600.webp 1600w" sizes="(max-width: 900px) 100vw, 80vw" width={1800} height={1197} loading="lazy" decoding="async" alt="ECHO舞台演出现场" /></figure><p>把人才议题<br />做成可感知的<br /><b>年度现场。</b></p><figure><img src="/media/optimized/echo-02-v2-1600.webp" srcSet="/media/optimized/echo-02-v2-640.webp 640w, /media/optimized/echo-02-v2-1600.webp 1600w" sizes="(max-width: 900px) 100vw, 80vw" width={1800} height={1197} loading="lazy" decoding="async" alt="ECHO项目团队合影" /></figure><p>复杂度越高，<br />越依赖清晰节点与<br /><b>稳定协作。</b></p></div>
     </section>
 
     <section className="chapter offer" id="offer">
-      <div className="offer-head"><div><span>CASE 03 / PUBLIC CAMPAIGN</span><h2>这份作品值得<br />一个OFFER</h2></div><p>用创意为求职者发声，<br />把好作品送上城市舞台。</p></div><img className="offer-hero" src="/media/offer-03.webp" alt="OFFER公益计划深圳地铁展示长廊" />
-      <div className="offer-bottom"><div className="offer-images"><img src="/media/offer-01.webp" alt="宠物主题摄影作品地铁展示" /><img src="/media/offer-02.webp" alt="猫咪摄影作品地铁展示" /><img src="/media/offer-04.webp" alt="设计作品地铁展示" /></div><article><span>IDEA</span><h3>重新定义<br />“竞争力”</h3><p>让真实作品成为能力证明，为求职者提供表达和被看见的机会。</p></article><article><span>RESOURCE</span><h3>让传播<br />进入城市</h3><p>推进媒体与城市公共资源合作，把优秀作品带进真实传播场景。</p></article><article><span>DELIVERY</span><h3>从征集<br />走向复制</h3><p>协调作品征集、筛选、展示与传播落地，并推动项目跨城复制。</p></article><div className="offer-metrics"><span>RESULT</span><strong>100+</strong><p>作品投稿</p><strong>15组</strong><p>深圳地铁展示</p><strong>10万+</strong><p>累计互动</p><strong>3城</strong><p>深圳 / 上海 / 北京</p></div></div>
+      <div className="offer-head"><div><span>CASE 03 / PUBLIC CAMPAIGN</span><h2>这份作品值得<br />一个OFFER</h2></div><p>用创意为求职者发声，<br />把好作品送上城市舞台。</p></div><img className="offer-hero" src="/media/optimized/offer-03-v2-1600.webp" srcSet="/media/optimized/offer-03-v2-640.webp 640w, /media/optimized/offer-03-v2-1600.webp 1600w" sizes="(max-width: 900px) 100vw, 70vw" width={1800} height={1012} loading="lazy" decoding="async" alt="OFFER公益计划深圳地铁展示长廊" />
+      <div className="offer-bottom"><div className="offer-images"><img src="/media/optimized/offer-01-v2-1600.webp" srcSet="/media/optimized/offer-01-v2-640.webp 640w, /media/optimized/offer-01-v2-1600.webp 1600w" sizes="(max-width: 900px) 100vw, 70vw" width={2200} height={1467} loading="lazy" decoding="async" alt="宠物主题摄影作品地铁展示" /><img src="/media/optimized/offer-02-v2-1600.webp" srcSet="/media/optimized/offer-02-v2-640.webp 640w, /media/optimized/offer-02-v2-1600.webp 1600w" sizes="(max-width: 900px) 100vw, 70vw" width={1600} height={1067} loading="lazy" decoding="async" alt="猫咪摄影作品地铁展示" /><img src="/media/optimized/offer-04-v2-1600.webp" srcSet="/media/optimized/offer-04-v2-640.webp 640w, /media/optimized/offer-04-v2-1600.webp 1600w" sizes="(max-width: 900px) 100vw, 70vw" width={1800} height={1200} loading="lazy" decoding="async" alt="设计作品地铁展示" /></div><article><span>IDEA</span><h3>重新定义<br />“竞争力”</h3><p>让真实作品成为能力证明，为求职者提供表达和被看见的机会。</p></article><article><span>RESOURCE</span><h3>让传播<br />进入城市</h3><p>推进媒体与城市公共资源合作，把优秀作品带进真实传播场景。</p></article><article><span>DELIVERY</span><h3>从征集<br />走向复制</h3><p>协调作品征集、筛选、展示与传播落地，并推动项目跨城复制。</p></article><div className="offer-metrics"><span>RESULT</span><strong>100+</strong><p>作品投稿</p><strong>15组</strong><p>深圳地铁展示</p><strong>10万+</strong><p>累计互动</p><strong>3城</strong><p>深圳 / 上海 / 北京</p></div></div>
     </section>
 
     <section className="chapter final" id="current">
       <div className="current-case">
-        <div className="current-case-head"><div><span>CURRENT WORK / 04</span><h2>现在，我把品牌方法<br />带进新的产品场景。</h2><p>从合作谈判、机制设计到跨部门交付，让品牌合作进入真实产品体验。</p></div><img src="/media/workbuddy-linkfox-banner.png" alt="LinkFox与WorkBuddy跨境AI搭子联合活动" /></div>
+        <div className="current-case-head"><div><span>CURRENT WORK / 04</span><h2>现在，我把品牌方法<br />带进新的产品场景。</h2><p>从合作谈判、机制设计到跨部门交付，让品牌合作进入真实产品体验。</p></div><img src="/media/optimized/workbuddy-linkfox-banner-v2-1361.webp" srcSet="/media/optimized/workbuddy-linkfox-banner-v2-640.webp 640w, /media/optimized/workbuddy-linkfox-banner-v2-1361.webp 1361w" sizes="(max-width: 900px) 100vw, 55vw" width={1361} height={598} loading="lazy" decoding="async" alt="LinkFox与WorkBuddy跨境AI搭子联合活动" /></div>
         <div className="current-case-detail">
           <div className="current-story"><article><span>BACKGROUND</span><h3>生态接入后的<br />首个联合运营项目</h3></article><article><span>JUDGEMENT</span><h3>新用户获取与存量用户激活，<br />需要两条不同路径</h3></article><article><span>MY ROLE</span><h3>负责合作谈判，统筹方案、规则、内容、<br />页面与跨部门上线</h3></article></div>
           <div className="current-results"><article><strong>2,069</strong><p>渠道注册</p></article><article><strong>149,743</strong><p>产品调用</p></article><article><strong>+128.3%</strong><p>日均调用</p></article><div><p>两期活动上线，形成从内容触达、注册到调用与活跃的观察链路。</p><small>活动前后工作日观察数据</small></div></div>
         </div>
       </div>
       <div className="closing-career" id="experience"><article><b>NOW / 紫讯科技</b><p>从品牌合作走向生态共建，推动品牌能力进入产品场景。</p></article><article><b>2019—2026 / BOSS直聘</b><p>在快速变化的业务中，建立品牌增长与合作机制。</p></article><article><b>EARLY YEARS / 市场与现场</b><p>从市场执行与现场运营起步，打下用户、内容与增长认知。</p></article></div>
-      <div className="closing-about" id="about"><div className="closing-statement"><h2>用技术理解产品，<br />用品牌创造价值。</h2></div><nav><a href="mailto:343906130@qq.com">343906130@qq.com ↗</a><a href="/Vince-resume.pdf" download>下载简历 ↓</a></nav><img src="/media/vince-portrait-cutout.png" alt="黄威Vince职业肖像" /></div>
+      <div className="closing-about" id="about"><div className="closing-statement"><h2>用技术理解产品，<br />用品牌创造价值。</h2></div><nav><a href="mailto:343906130@qq.com">343906130@qq.com ↗</a><a href="/Vince-resume.pdf" download>下载简历 ↓</a></nav><img src="/media/optimized/vince-portrait-cutout-v2-1024.webp" srcSet="/media/optimized/vince-portrait-cutout-v2-640.webp 640w, /media/optimized/vince-portrait-cutout-v2-1024.webp 1024w" sizes="(max-width: 900px) 88vw, 27vw" width={1024} height={1536} loading="lazy" decoding="async" alt="黄威Vince职业肖像" /></div>
     </section>
   </main>;
 }

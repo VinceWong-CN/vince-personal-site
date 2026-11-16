@@ -65,6 +65,6 @@ export default function DragFilmstrip({ images }: { images: string[][] }) {
     track.scrollBy({ left: (event.key === 'ArrowRight' ? 1 : -1) * track.clientWidth * .55, behavior: matchMedia('(prefers-reduced-motion: reduce)').matches ? 'auto' : 'smooth' });
   };
   return <div className="filmstrip" ref={trackRef} tabIndex={0} onKeyDown={onKeyDown} onPointerDown={onDown} onPointerMove={onMove} onPointerUp={onUp} onPointerCancel={onCancel} aria-label="可横向拖动或使用左右方向键查看《我的老板10后》项目影像">
-    {images.map(([src, alt], index) => <figure key={src}><span>0{index + 1}</span><img src={src} alt={alt} loading="lazy" draggable={false} /></figure>)}
+    {images.map(([src, alt, srcSet], index) => <figure key={src}><span>0{index + 1}</span><img src={src} srcSet={srcSet} sizes="(max-width: 900px) 72vw, 15.2vw" width={1100} height={2385} alt={alt} loading="lazy" decoding="async" draggable={false} /></figure>)}
   </div>;
 }

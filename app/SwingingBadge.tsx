@@ -173,7 +173,7 @@ export default function SwingingBadge() {
         onPointerUp={releaseBadge}
         onPointerCancel={releaseBadge}
       >
-        <img src="/media/vince-window-character.png" alt="" draggable={false} />
+        <img src="/media/optimized/vince-window-character-v2-1024.webp" srcSet="/media/optimized/vince-window-character-v2-640.webp 640w, /media/optimized/vince-window-character-v2-1024.webp 1024w" sizes="(max-width: 900px) 90vw, 38vw" width={1024} height={1536} fetchPriority="high" loading="eager" decoding="async" alt="" draggable={false} />
       </div>
     </div>
   );
