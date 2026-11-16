@@ -21,6 +21,7 @@ export default function DragFilmstrip({ images }: { images: string[][] }) {
     return () => { track.removeEventListener('scroll', updateFocus); cancelAnimationFrame(inertiaRef.current); };
   }, []);
   const onDown = (event: ReactPointerEvent<HTMLDivElement>) => {
+    if (event.pointerType !== 'mouse') return;
     const track = trackRef.current;
     if (!track) return;
     cancelAnimationFrame(inertiaRef.current);
@@ -37,7 +38,6 @@ export default function DragFilmstrip({ images }: { images: string[][] }) {
       drag.current.lastX = event.clientX;
       drag.current.lastTime = now;
       track.scrollLeft = drag.current.scroll - (event.clientX - drag.current.start) * 1.08;
-      track.style.setProperty('--film-skew', `${Math.max(-2, Math.min(2, drag.current.velocity * -.16))}deg`);
     }
   };
   const stopDrag = (event: ReactPointerEvent<HTMLDivElement>, useInertia: boolean) => {
@@ -49,12 +49,10 @@ export default function DragFilmstrip({ images }: { images: string[][] }) {
     let velocity = drag.current.velocity * 1.08;
     const glide = () => {
       track.scrollLeft += velocity;
-      track.style.setProperty('--film-skew', `${Math.max(-2, Math.min(2, velocity * -.12))}deg`);
       const maxScroll = track.scrollWidth - track.clientWidth;
       if ((track.scrollLeft <= 0 && velocity < 0) || (track.scrollLeft >= maxScroll && velocity > 0)) velocity = 0;
       velocity *= .92;
       if (Math.abs(velocity) > .25) inertiaRef.current = requestAnimationFrame(glide);
-      else track.style.setProperty('--film-skew', '0deg');
     };
     inertiaRef.current = requestAnimationFrame(glide);
   };
