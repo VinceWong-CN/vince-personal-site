@@ -37,23 +37,36 @@ export default function DragFilmstrip({ images }: { images: string[][] }) {
       drag.current.lastX = event.clientX;
       drag.current.lastTime = now;
       track.scrollLeft = drag.current.scroll - (event.clientX - drag.current.start) * 1.08;
+      track.style.setProperty('--film-skew', `${Math.max(-2, Math.min(2, drag.current.velocity * -.16))}deg`);
     }
   };
-  const onUp = (event: ReactPointerEvent<HTMLDivElement>) => {
+  const stopDrag = (event: ReactPointerEvent<HTMLDivElement>, useInertia: boolean) => {
     const track = trackRef.current;
     if (!track || drag.current.id !== event.pointerId) return;
     if (track.hasPointerCapture(event.pointerId)) track.releasePointerCapture(event.pointerId);
     track.dataset.dragging = 'false'; drag.current.id = -1;
-    if (matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+    if (!useInertia || matchMedia('(prefers-reduced-motion: reduce)').matches) return;
     let velocity = drag.current.velocity * 1.08;
     const glide = () => {
       track.scrollLeft += velocity;
+      track.style.setProperty('--film-skew', `${Math.max(-2, Math.min(2, velocity * -.12))}deg`);
+      const maxScroll = track.scrollWidth - track.clientWidth;
+      if ((track.scrollLeft <= 0 && velocity < 0) || (track.scrollLeft >= maxScroll && velocity > 0)) velocity = 0;
       velocity *= .92;
       if (Math.abs(velocity) > .25) inertiaRef.current = requestAnimationFrame(glide);
+      else track.style.setProperty('--film-skew', '0deg');
     };
     inertiaRef.current = requestAnimationFrame(glide);
   };
-  return <div className="filmstrip" ref={trackRef} onPointerDown={onDown} onPointerMove={onMove} onPointerUp={onUp} onPointerCancel={onUp} aria-label="可横向拖动查看《我的老板10后》项目影像">
+  const onUp = (event: ReactPointerEvent<HTMLDivElement>) => stopDrag(event, true);
+  const onCancel = (event: ReactPointerEvent<HTMLDivElement>) => stopDrag(event, false);
+  const onKeyDown = (event: React.KeyboardEvent<HTMLDivElement>) => {
+    const track = trackRef.current;
+    if (!track || (event.key !== 'ArrowLeft' && event.key !== 'ArrowRight')) return;
+    event.preventDefault();
+    track.scrollBy({ left: (event.key === 'ArrowRight' ? 1 : -1) * track.clientWidth * .55, behavior: matchMedia('(prefers-reduced-motion: reduce)').matches ? 'auto' : 'smooth' });
+  };
+  return <div className="filmstrip" ref={trackRef} tabIndex={0} onKeyDown={onKeyDown} onPointerDown={onDown} onPointerMove={onMove} onPointerUp={onUp} onPointerCancel={onCancel} aria-label="可横向拖动或使用左右方向键查看《我的老板10后》项目影像">
     {images.map(([src, alt], index) => <figure key={src}><span>0{index + 1}</span><img src={src} alt={alt} loading="lazy" draggable={false} /></figure>)}
   </div>;
 }

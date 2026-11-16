@@ -21,20 +21,19 @@ export default function SwingingBadge() {
     velocityY: 0,
   });
   const reduceMotionRef = useRef(false);
-  const idleTweenRef = useRef<gsap.core.Tween | null>(null);
+  const idleTweenRef = useRef<gsap.core.Animation | null>(null);
+  const quickXRef = useRef<((value: number) => void) | null>(null);
+  const quickYRef = useRef<((value: number) => void) | null>(null);
+  const quickRotationRef = useRef<((value: number) => void) | null>(null);
 
   const startIdle = () => {
     const badge = badgeRef.current;
     if (!badge || reduceMotionRef.current) return;
     idleTweenRef.current?.kill();
-    idleTweenRef.current = gsap.to(badge, {
-      rotation: 1.1,
-      duration: 1.15,
-      ease: 'sine.inOut',
-      repeat: 1,
-      yoyo: true,
-      transformOrigin: '50% 3%',
-    });
+    idleTweenRef.current = gsap.timeline({ repeat: -1, delay: .35 })
+      .to(badge, { x: 4, y: -3, rotation: .5, duration: 2.8, ease: 'sine.inOut', transformOrigin: '50% 3%' })
+      .to(badge, { x: -3, y: 2, rotation: -1.8, duration: 3.4, ease: 'sine.inOut' })
+      .to(badge, { x: 2, y: 0, rotation: .7, duration: 2.6, ease: 'sine.inOut' });
   };
 
   useEffect(() => {
@@ -44,7 +43,10 @@ export default function SwingingBadge() {
     if (!badge) return;
 
     gsap.set(badge, { rotation: -2.2, transformOrigin: '50% 3%' });
-    idleTweenRef.current = gsap.to(badge, { rotation: 1.1, duration: 1.05, repeat: 1, yoyo: true, ease: 'sine.inOut', delay: .55 });
+    quickXRef.current = gsap.quickTo(badge, 'x', { duration: .38, ease: 'power3.out' });
+    quickYRef.current = gsap.quickTo(badge, 'y', { duration: .38, ease: 'power3.out' });
+    quickRotationRef.current = gsap.quickTo(badge, 'rotation', { duration: .42, ease: 'power3.out' });
+    startIdle();
 
     const onMotionChange = (event: MediaQueryListEvent) => {
       reduceMotionRef.current = event.matches;
@@ -62,7 +64,7 @@ export default function SwingingBadge() {
   }, []);
 
   const handlePointerDown = (event: ReactPointerEvent<HTMLDivElement>) => {
-    if (reduceMotionRef.current || !badgeRef.current) return;
+    if (!badgeRef.current) return;
     event.currentTarget.setPointerCapture(event.pointerId);
     idleTweenRef.current?.kill();
     gsap.killTweensOf(badgeRef.current);
@@ -84,7 +86,7 @@ export default function SwingingBadge() {
   const handlePointerMove = (event: ReactPointerEvent<HTMLDivElement>) => {
     const badge = badgeRef.current;
     const stage = stageRef.current;
-    if (!badge || !stage || reduceMotionRef.current) return;
+    if (!badge || !stage) return;
     const drag = dragRef.current;
 
     if (drag.pointerId === event.pointerId) {
@@ -105,17 +107,18 @@ export default function SwingingBadge() {
       return;
     }
 
+    if (reduceMotionRef.current) return;
     const rect = stage.getBoundingClientRect();
-    const x = (event.clientX - rect.left) / rect.width - 0.5;
-    const y = (event.clientY - rect.top) / rect.height - 0.5;
-    gsap.to(badge, {
-      x: x * 8,
-      y: y * 5,
-      rotation: x * 2.2,
-      duration: 0.5,
-      ease: 'power3.out',
-      overwrite: 'auto',
-    });
+    const x = clamp((event.clientX - rect.left) / rect.width - 0.5, -0.5, 0.5);
+    const y = clamp((event.clientY - rect.top) / rect.height - 0.5, -0.5, 0.5);
+    quickXRef.current?.(x * 62);
+    quickYRef.current?.(y * 42);
+    quickRotationRef.current?.(x * 7 - 1.1);
+  };
+
+  const handlePointerEnter = () => {
+    if (reduceMotionRef.current || dragRef.current.pointerId !== -1) return;
+    idleTweenRef.current?.kill();
   };
 
   const releaseBadge = (event: ReactPointerEvent<HTMLDivElement>) => {
@@ -126,13 +129,18 @@ export default function SwingingBadge() {
     event.currentTarget.dataset.dragging = 'false';
     drag.pointerId = -1;
 
+    if (reduceMotionRef.current) {
+      gsap.set(badge, { x: 0, y: 0, rotation: 0 });
+      return;
+    }
+
     const inertiaX = clamp(drag.x + drag.velocityX * 8, -175, 175);
     const inertiaY = clamp(drag.y + drag.velocityY * 5, -95, 125);
     const inertiaRotation = clamp(drag.velocityX * 1.25 + drag.x * 0.025, -12, 12);
 
     gsap.timeline({ onComplete: startIdle })
       .to(badge, { x: inertiaX, y: inertiaY, rotation: inertiaRotation, duration: 0.18, ease: 'power2.out' })
-      .to(badge, { x: 0, y: 0, rotation: -1.1, duration: 1.15, ease: 'elastic.out(1, 0.32)' });
+      .to(badge, { x: 0, y: 0, rotation: -1.1, duration: .72, ease: 'expo.out' });
   };
 
   const handlePointerLeave = () => {
@@ -142,24 +150,28 @@ export default function SwingingBadge() {
       x: 0,
       y: 0,
       rotation: -1.1,
-      duration: 0.75,
-      ease: 'elastic.out(1, 0.45)',
+      duration: 0.65,
+      ease: 'expo.out',
       onComplete: startIdle,
     });
   };
 
   return (
-    <div className="badge-stage" ref={stageRef}>
+    <div
+      className="badge-stage"
+      ref={stageRef}
+      onPointerEnter={handlePointerEnter}
+      onPointerMove={handlePointerMove}
+      onPointerLeave={handlePointerLeave}
+    >
       <div
         className="swinging-badge"
         ref={badgeRef}
         role="img"
         aria-label="黄威的卡通形象从工牌窗口探出，望向左侧文字"
         onPointerDown={handlePointerDown}
-        onPointerMove={handlePointerMove}
         onPointerUp={releaseBadge}
         onPointerCancel={releaseBadge}
-        onPointerLeave={handlePointerLeave}
       >
         <img src="/media/vince-window-character.png" alt="" draggable={false} />
       </div>
