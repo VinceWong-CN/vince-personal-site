@@ -211,11 +211,14 @@ body[data-transitioning=true]{overflow:hidden}
 
 /* Mobile project index: all three projects remain visible without duplicate images. */
 @media(max-width:900px){
+  .proof h2{font-size:clamp(24px,7.3vw,32px);line-height:1.18;letter-spacing:-.035em;white-space:nowrap}
   .selected-title h2 i:last-child{font-size:clamp(22px,6.6vw,48px);line-height:1.3;white-space:nowrap}
   .selected-collage{height:auto;margin-top:28px}
-  .selected-collage a{display:grid!important;grid-template-columns:24px minmax(0,1fr) 16px;align-items:center;gap:12px;margin:0!important;padding:22px 0}
-  .selected-collage a:before{content:attr(data-index);font:700 13px/1 var(--en);color:#666761}
-  .selected-collage a:after{content:"↗";font-size:20px}
-  .selected-collage a>div,.selected-collage a>img,.selected-collage a>span,.selected-collage a>p,.selected-collage a>b{display:none}
-  .selected-collage h3{margin:0;font-size:clamp(20px,5.3vw,29px);font-weight:780;line-height:1.35;letter-spacing:-.025em;overflow-wrap:normal}
+  .selected-collage a{display:grid!important;grid-template-columns:24px minmax(0,1fr) 16px;align-items:center;gap:7px 12px;margin:0!important;padding:22px 0}
+  .selected-collage a:before{content:attr(data-index);grid-column:1;grid-row:1;font:700 13px/1 var(--en);color:#666761}
+  .selected-collage a:after{content:"↗";grid-column:3;grid-row:1;font-size:20px}
+  .selected-collage a>div,.selected-collage a>img,.selected-collage a>span{display:none}
+  .selected-collage h3{grid-column:2;grid-row:1;margin:0;font-size:clamp(20px,5.3vw,29px);font-weight:780;line-height:1.35;letter-spacing:-.025em;overflow-wrap:normal}
+  .selected-collage a>p{display:block;grid-column:2/4;grid-row:2;margin:0;font-size:13px;line-height:1.6;color:#666761}
+  .selected-collage a>b{display:block;grid-column:2/4;grid-row:3;justify-self:start;margin:0;font-size:13px;font-weight:700;line-height:1.5}
 }
